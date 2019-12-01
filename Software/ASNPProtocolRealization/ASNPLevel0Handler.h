@@ -7,7 +7,7 @@
 class cASNPLevel0Handler{
 public:
   static const long PACKAGE_RESET_TIMEOUT = 500; //ms
-  static const long SEND_BUFFER_SIZE = 2048;
+  static const long SEND_BUFFER_SIZE = 3072;
   static const long HALF_SEND_BUFFER_SIZE = SEND_BUFFER_SIZE / 2;
 
   static const long PACKAGE_HEADER_SIZE = 1+1+1; //PACKAGE_INFO + ADDRESS + DATA_SIZE

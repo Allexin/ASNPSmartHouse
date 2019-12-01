@@ -1,5 +1,5 @@
-#ifndef UTILS
-#define UTILS
+#ifndef ASNPUTILS
+#define ASNPUTILS
 
 #include <Arduino.h>
 #include "ASNPLevel0Handler.h"
@@ -42,4 +42,4 @@ public:
   }
 };
 
-#endif //UTILS
+#endif //ASNPUTILS

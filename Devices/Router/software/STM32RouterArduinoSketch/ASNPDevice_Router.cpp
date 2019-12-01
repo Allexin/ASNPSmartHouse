@@ -1,5 +1,5 @@
 #include "ASNPDevice_Router.h"
-#include "utils.h"
+#include "ASNPUtils.h"
 
 void cDevice_Router::onRawMessageReceived(class cASNPLevel1Handler* sender, uint8_t* package)
 {
@@ -35,9 +35,16 @@ cDevice_Router::cDevice_Router():
 
 void cDevice_Router::start()
 {
-  m_Port1.setStream(&Serial1);
-  m_Port2.setStream(&Serial2);
-  m_Port3.setStream(&Serial3);
+  Serial1.stm32SetRX(PA10);
+  Serial1.stm32SetTX(PA9);
+  Serial1.begin(cUtils::DEFAULT_BAUD_RATE); 
+  Serial2.begin(cUtils::DEFAULT_BAUD_RATE); 
+  Serial3.begin(cUtils::DEFAULT_BAUD_RATE); 
+
+  
+  m_Port1.setStream(&SerialUART1);
+  m_Port2.setStream(&SerialUART2);
+  m_Port3.setStream(&SerialUART3);
   for (int i = 0; i<PORTS_COUNT;++i)
   {
     m_Ports[i]->setEventsListener(this);
@@ -57,4 +64,3 @@ bool cDevice_Router::update(long dt)
   }
   return actions;
 }
-

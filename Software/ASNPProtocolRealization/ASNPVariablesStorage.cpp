@@ -1,6 +1,6 @@
 #include "ASNPVariablesStorage.h"
 #include <EEPROM.h>
-#include "utils.h"
+#include "ASNPUtils.h"
 
 uint8_t getVariableSize(eVariableType type)
 {

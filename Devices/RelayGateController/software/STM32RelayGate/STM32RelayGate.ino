@@ -30,6 +30,11 @@ long long lastUpdate = 0;
 void setup() {  
   pinMode(LED_BUILTIN,OUTPUT);
   offLed();
+  delay(100);
+  onLed();
+  delay(100);
+  offLed();
+  
   Device.start();
   
   startWatchDog();  

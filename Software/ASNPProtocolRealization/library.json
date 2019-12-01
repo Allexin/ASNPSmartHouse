@@ -1,0 +1,23 @@
+{
+    "name": "ASNPProtocolRealization",
+    "description": "A Serial Network Protocol Realization",
+    "keywords": "asnp",
+    "authors": [
+        {
+            "name": "Alexander Basov",
+            "email": "basovav@gmail.com",
+            "url": "https://github.com/Allexin/ASNPSmartHouse",
+            "maintainer": true
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Allexin/ASNPSmartHouse"
+    },
+    "version": "1.0.0",
+    "homepage": "https://github.com/Allexin/ASNPSmartHouse",
+    "frameworks": "Arduino",
+    "examples": [
+        "examples/*/*.pde"
+    ]
+}
