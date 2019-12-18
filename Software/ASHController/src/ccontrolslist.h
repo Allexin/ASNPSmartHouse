@@ -6,7 +6,7 @@
 #include <QPainter>
 #include <QDateTime>
 #include <cudpclient.h>
-
+/*
 namespace Ui {
 class cControlsList;
 }
@@ -101,5 +101,5 @@ public:
 private:
     Ui::cControlsList *ui;
 };
-
+*/
 #endif // CCONTROLSLIST_H

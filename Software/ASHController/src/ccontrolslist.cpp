@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 
+/*
 static const uint8_t FLAG_PARITY = 1;
 static const uint8_t FLAG_HIGH_PRIORITY = 2;
 static const uint8_t FLAG_GROUP_ADDRESS = 4;
@@ -27,18 +28,24 @@ enum eVariableType : uint8_t{
   VT_LINK
 };
 
-struct __attribute__((packed)) sUFixFloat{
+#ifdef __GNUC__
+#define pack_struct __attribute__((packed))
+#else
+#define pack_struct
+#pragma pack(push,1)
+#endif
+
+struct pack_struct sUFixFloat{
   uint8_t integer;
   uint8_t frac;
 };
 
-struct __attribute__((packed)) sFixFloat{
+struct pack_struct sFixFloat{
   int8_t integer;
   uint8_t frac;
 };
 
-
-struct __attribute__((packed)) sVariableLink{
+struct pack_struct sVariableLink{
   uint8_t addressType;
   uint8_t address;
   char linkVariableName[16];
@@ -46,11 +53,18 @@ struct __attribute__((packed)) sVariableLink{
   eVariableType linkVariableType;
 };
 
-struct __attribute__((packed)) sVariableInfo{
+struct pack_struct sVariableInfo{
   char name[16];
   eVariableType type;
   uint8_t slotsCount;//also slot index in some cases
 };
+
+#ifdef __GNUC__
+#undef pack_struct
+#else
+#undef pack_struct
+#pragma pack(pop)
+#endif
 
 uint8_t getVariableSize(eVariableType type)
 {
@@ -429,7 +443,7 @@ void cControlsList::mouseMoveEvent(QMouseEvent *eventPress)
 {
     if (m_Scrolling){
         m_Scroll = m_Scroll + eventPress->pos().y() - m_PrevMousePos.y();
-        m_MouseShift = m_MouseShift /* +(eventPress->pos().x() - m_PrevMousePos.x())*/ + abs(eventPress->pos().y() - m_PrevMousePos.y());
+        m_MouseShift = m_MouseShift  + abs(eventPress->pos().y() - m_PrevMousePos.y());
     }    
     m_PrevMousePos = eventPress->pos();
     if (m_CurrentItem>-1){
@@ -474,4 +488,4 @@ void cControlsList::addItem(cBaseItem *item)
 }
 
 
-
+*/
