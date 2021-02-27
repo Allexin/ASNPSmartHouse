@@ -1,0 +1,255 @@
+[VARIANTS]
+абракадабра
+[VARIANTS]
+включить
+включи
+включись
+включив
+[VARIANTS]
+кухня
+кухонный
+кухне
+[VARIANTS]
+детский
+детская
+детской
+[VARIANTS]
+открыть
+открой
+откроет
+открою
+откройся
+откройтесь
+[VARIANTS]
+большой
+большую
+большая
+[VARIANTS]
+первая 
+первую
+[VARIANTS]
+вторую 
+вторая
+[VARIANTS]
+третью
+третья
+третье
+прийти
+[VARIANTS]
+четвертую
+четвертая
+четвёртую
+четвёртая
+[VARIANTS]
+поднять
+подними
+поднимись
+поднимитесь
+[VARIANTS]
+маленькая
+маленькую
+маленькие
+маленький
+[VARIANTS]
+выключить
+выключи
+выключись
+выключив
+[VARIANTS]
+закрыть
+закрой
+закроет
+закройся
+закройтесь
+[VARIANTS]
+опустить
+опусти
+опустись
+опуститесь
+[VARIANTS]
+зона
+зоне
+[VARIANTS]
+ставни
+ставню
+ставня
+ставлю
+[VARIANTS]
+сто
+что
+[VARIANTS]
+угловые
+угловую
+главы
+[VARIANTS]
+свет
+средства
+средств
+света
+[START_SEQUENCE]
+абракадабра
+[SET_VALUE]
+сто
+включи
+открой
+подними
+[VALUE]
+flag=1
+direction=0
+dimmer=255
+[SET_VALUE]
+девяносто
+[VALUE]
+flag=1
+direction=0
+dimmer=230
+[SET_VALUE]
+восемьдесят
+[VALUE]
+flag=1
+direction=0
+dimmer=204
+[SET_VALUE]
+семьдесят
+[VALUE]
+flag=1
+direction=0
+dimmer=180
+[SET_VALUE]
+шестьдесят
+[VALUE]
+flag=1
+direction=0
+dimmer=155
+[SET_VALUE]
+пятьдесят
+[VALUE]
+flag=1
+direction=0
+dimmer=128
+[SET_VALUE]
+сорок
+[VALUE]
+flag=0
+direction=1
+dimmer=100
+[SET_VALUE]
+тридцать
+[VALUE]
+flag=0
+direction=1
+dimmer=75
+[SET_VALUE]
+двадцать
+[VALUE]
+flag=0
+direction=1
+dimmer=50
+[SET_VALUE]
+десять
+[VALUE]
+flag=0
+direction=1
+dimmer=25
+[SET_VALUE]
+ноль
+выключи
+закрой
+опусти
+[VALUE]
+flag=0
+direction=1
+dimmer=0
+[EXEC_CMD]
+свет зона один
+свет первой зоне
+первой зоне свет
+зоне один свет
+[CMD]
+UnitTest,1,dimmer,flag,direction
+setLight,11,0,dimmer,2
+[EXEC_CMD]
+свет зона два
+свет второй зоне
+второй зоне свет
+зоне два свет
+[CMD]
+UnitTest,2,dimmer,flag,direction
+setLight,11,1,dimmer,2
+[EXEC_CMD]
+свет зона три
+свет третьей зоне
+третьей зоне свет
+зоне три свет
+[CMD]
+UnitTest,3,dimmer,flag,direction
+setLight,11,2,dimmer,2
+[EXEC_CMD]
+свет
+[CMD]
+UnitTest,4,dimmer,flag,direction
+setLight,11,0,dimmer,2
+setLight,11,1,dimmer,2
+setLight,11,2,dimmer,2
+[EXEC_CMD]
+ставня один
+ставню один
+большую ставню
+первую ставню
+[CMD]
+UnitTest,5,dimmer,flag,direction
+startGate,21,flag
+[EXEC_CMD]
+ставня два
+ставню два
+вторую ставню
+[CMD]
+UnitTest,6,dimmer,flag,direction
+startGate,22,flag
+[EXEC_CMD]
+ставня три
+ставню три
+третью ставню
+[CMD]
+UnitTest,7,dimmer,flag,direction
+startGate,23,flag
+[EXEC_CMD]
+ставня четыре
+ставню четыре
+четвертую ставню
+[CMD]
+UnitTest,8,dimmer,flag,direction
+startGate,25,flag
+[EXEC_CMD]
+угловые ставни
+[CMD]
+UnitTest,9,dimmer,flag,direction
+startGate,22,flag
+startGate,23,flag
+[EXEC_CMD]
+маленькие ставни
+[CMD]
+UnitTest,10,dimmer,flag,direction
+startGate,22,flag
+startGate,23,flag
+startGate,25,flag
+[END_OF_FILE]
+[EXEC_CMD]
+ставни
+[CMD]
+UnitTest,11,dimmer,flag,direction
+startGate,21,flag
+startGate,22,flag
+startGate,23,flag
+startGate,25,flag
+[EXEC_CMD]
+кухня свет
+[CMD]
+UnitTest,12,dimmer,flag,direction
+setLight,10,0,dimmer,2
+[EXEC_CMD]
+детский свет
+[CMD]
+UnitTest,13,dimmer,flag,direction
+setLight,1,0,dimmer,2
+[END_OF_FILE]
