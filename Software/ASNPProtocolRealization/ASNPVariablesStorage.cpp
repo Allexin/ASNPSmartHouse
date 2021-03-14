@@ -11,6 +11,7 @@ uint8_t getVariableSize(eVariableType type)
     case VT_FIXFLOAT16: return sizeof(sFixFloat);break;
     case VT_STRING16: return 16;break;
     case VT_LINK: return sizeof(sVariableLink);break;
+    case VT_UINT8VECTOR4: return sizeof(uint8_t)*4;break;
   }
 }
 
