@@ -6,6 +6,12 @@
 #include <QSerialPort>
 #include "dialogvariableinput.h"
 
+#ifdef __GNUC__
+#define PACKED_ATTRIB __attribute__((packed))
+#else
+#define PACKED_ATTRIB
+#endif
+
 namespace Ui {
 class MainWindow;
 }
@@ -16,21 +22,24 @@ enum eVariableType : uint8_t{
   VT_UFIXFLOAT16,
   VT_FIXFLOAT16,
   VT_STRING16,
-  VT_LINK
+  VT_LINK,
+  VT_UINT8VECTOR4
 };
 
-struct __attribute__((packed)) sUFixFloat{
+#include "pack_start.h"
+
+struct PACKED_ATTRIB sUFixFloat{
   uint8_t integer;
   uint8_t frac;
 };
 
-struct __attribute__((packed)) sFixFloat{
+struct PACKED_ATTRIB sFixFloat{
   int8_t integer;
   uint8_t frac;
 };
 
 
-struct __attribute__((packed)) sVariableLink{
+struct PACKED_ATTRIB sVariableLink{
   uint8_t addressType;
   uint8_t address;
   char linkVariableName[16];
@@ -38,11 +47,13 @@ struct __attribute__((packed)) sVariableLink{
   eVariableType linkVariableType;
 };
 
-struct __attribute__((packed)) sVariableInfo{
+struct PACKED_ATTRIB sVariableInfo{
   char name[16];
   eVariableType type;
   uint8_t slotsCount;//also slot index in some cases
 };
+
+#include "pack_end.h"
 
 struct sDeviceVariable{
     sVariableInfo info;

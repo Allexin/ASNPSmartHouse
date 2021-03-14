@@ -28,7 +28,9 @@ uint8_t getVariableSize(eVariableType type)
     case VT_FIXFLOAT16: return sizeof(sFixFloat);break;
     case VT_STRING16: return 16;break;
     case VT_LINK: return sizeof(sVariableLink);break;
+    case VT_UINT8VECTOR4:return sizeof(uint8_t)*4;break;
   }
+  return 1;
 }
 
 QString typeToString(eVariableType type)
@@ -40,7 +42,9 @@ QString typeToString(eVariableType type)
       case VT_FIXFLOAT16: return "fixed16";break;
       case VT_STRING16: return "string16";break;
       case VT_LINK: return "link";break;
+      case VT_UINT8VECTOR4: return "uint8vector4";break;
     }
+    return "unknown variable type";
 }
 
 QString valueToString(eVariableType type, QByteArray data)
@@ -50,9 +54,11 @@ QString valueToString(eVariableType type, QByteArray data)
       case VT_UINT16: return "not implemented";break;
       case VT_UFIXFLOAT16: return "not implemented";break;
       case VT_FIXFLOAT16: return "not implemented";break;
-      case VT_STRING16: return "not implemented";break;
+      case VT_STRING16: return QString::fromLatin1(data);break;
       case VT_LINK: return "not implemented";break;
+      case VT_UINT8VECTOR4: return QString("%1 %2 %3 %5").arg(uint8_t(data[0])).arg(uint8_t(data[1])).arg(uint8_t(data[2])).arg(uint8_t(data[3]));break;
     }
+    return "unknown variable type";
 }
 
 static const uint8_t FLAG_PARITY = 1;
@@ -152,13 +158,15 @@ void MainWindow::sendPing()
 
 void MainWindow::sendPong()
 {    
+    for (int s = 0; s<4; ++s)
+    {
                         //highPriority, groupAddress, event, address, dataLength, cmdType, cmd,           dataVersion
     writeStartToTempBuffer(true,        false,       false,  0x00,    0x00,       0x00,    CMD_PONG,      0x01);
     //fill data
     writeuint8ToTempBuffer(64);
     writeuint8ToTempBuffer(DEFAULT_ADDRESS);
     for (int i = 0; i<63; ++i){
-        writeuint8ToTempBuffer(i+1);
+        writeuint8ToTempBuffer(i+1+s*64);
     }
     writeuint8ToTempBuffer(0);
     writeuint8ToTempBuffer(0);
@@ -166,6 +174,7 @@ void MainWindow::sendPong()
     writeDataLengthToTempBuffer();
     writeChecksumToTempBuffer();
     send(m_SendBuffer);
+    }
 }
 
 void MainWindow::sendRequestInfo(uint8_t targetAddress, bool groupAddress)

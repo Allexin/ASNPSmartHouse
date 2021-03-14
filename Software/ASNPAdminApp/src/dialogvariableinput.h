@@ -25,6 +25,8 @@ private slots:
 
     void on_pushButton_OK_clicked();
 
+    void on_lineEdit_string16_textChanged(const QString &);
+
 private:
     Ui::DialogVariableInput *ui;
 };

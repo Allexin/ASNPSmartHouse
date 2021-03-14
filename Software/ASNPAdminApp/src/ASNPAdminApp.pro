@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     dialogvariableinput.cpp
 
 HEADERS  += mainwindow.h \
-    dialogvariableinput.h
+    dialogvariableinput.h \
+    pack_end.h \
+    pack_start.h
 
 FORMS    += mainwindow.ui \
     dialogvariableinput.ui
