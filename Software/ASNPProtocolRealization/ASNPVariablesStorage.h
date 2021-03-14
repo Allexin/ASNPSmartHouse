@@ -9,7 +9,8 @@ enum eVariableType : uint8_t{
   VT_UFIXFLOAT16,
   VT_FIXFLOAT16,
   VT_STRING16,
-  VT_LINK
+  VT_LINK,
+  VT_UINT8VECTOR4
 };
 
 uint8_t getVariableSize(eVariableType type);
