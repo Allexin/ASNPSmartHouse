@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name SmartHousePowerUARTRouter-rescue)(type Legacy)(uri ${KIPRJMOD}/SmartHousePowerUARTRouter-rescue.lib)(options "")(descr ""))
+)

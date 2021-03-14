@@ -1,0 +1,292 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:SmartHouseComponents
+LIBS:SmartHouseDINRelayGate-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L RELAY_1C U2
+U 1 1 5CB2FA0C
+P 8300 2550
+F 0 "U2" H 8300 2650 60  0000 C CNN
+F 1 "RELAY_1C" H 8300 2750 60  0000 C CNN
+F 2 "SmartHouseLib:RELAY_TRU_1C" H 8300 2550 60  0001 C CNN
+F 3 "" H 8300 2550 60  0001 C CNN
+	1    8300 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L D D1
+U 1 1 5CB317B7
+P 7650 2700
+F 0 "D1" H 7650 2800 50  0000 C CNN
+F 1 "D" H 7650 2600 50  0000 C CNN
+F 2 "Diodes_ThroughHole:D_A-405_P7.62mm_Horizontal" H 7650 2700 50  0000 C CNN
+F 3 "" H 7650 2700 50  0000 C CNN
+	1    7650 2700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Q_NPN_EBC Q1
+U 1 1 5CB31A49
+P 7100 2350
+F 0 "Q1" H 7400 2400 50  0000 R CNN
+F 1 "Q_NPN_EBC" H 7700 2300 50  0000 R CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Rugged" H 7300 2450 50  0000 C CNN
+F 3 "" H 7100 2350 50  0000 C CNN
+	1    7100 2350
+	1    0    0    1   
+$EndComp
+$Comp
+L R R1
+U 1 1 5CB31BA1
+P 6800 2200
+F 0 "R1" V 6880 2200 50  0000 C CNN
+F 1 "R4K7" V 6800 2200 50  0000 C CNN
+F 2 "Resistors_SMD:R_1206_HandSoldering" V 6730 2200 50  0000 C CNN
+F 3 "" H 6800 2200 50  0000 C CNN
+	1    6800 2200
+	1    0    0    -1  
+$EndComp
+Connection ~ 7650 2550
+Connection ~ 7650 2850
+Wire Wire Line
+	7400 2850 7400 4400
+Connection ~ 7400 2550
+Wire Wire Line
+	5350 2050 7200 2050
+Wire Wire Line
+	7200 2050 7200 2150
+Wire Wire Line
+	6100 2350 6900 2350
+Connection ~ 6800 2350
+Wire Wire Line
+	5350 3050 5350 2050
+Connection ~ 6800 2050
+Wire Wire Line
+	7400 1600 7400 2550
+$Comp
+L RELAY_1C U3
+U 1 1 5CB33F98
+P 10050 4100
+F 0 "U3" H 10050 4200 60  0000 C CNN
+F 1 "RELAY_1C" H 10050 4300 60  0000 C CNN
+F 2 "SmartHouseLib:RELAY_TRU_1C" H 10050 4100 60  0001 C CNN
+F 3 "" H 10050 4100 60  0001 C CNN
+	1    10050 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L D D2
+U 1 1 5CB33F9E
+P 9400 4250
+F 0 "D2" H 9400 4350 50  0000 C CNN
+F 1 "D" H 9400 4150 50  0000 C CNN
+F 2 "Diodes_ThroughHole:D_A-405_P7.62mm_Horizontal" H 9400 4250 50  0000 C CNN
+F 3 "" H 9400 4250 50  0000 C CNN
+	1    9400 4250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Q_NPN_EBC Q2
+U 1 1 5CB33FAA
+P 8850 3900
+F 0 "Q2" H 9150 3950 50  0000 R CNN
+F 1 "Q_NPN_EBC" H 9450 3850 50  0000 R CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Rugged" H 9050 4000 50  0000 C CNN
+F 3 "" H 8850 3900 50  0000 C CNN
+	1    8850 3900
+	1    0    0    1   
+$EndComp
+$Comp
+L R R2
+U 1 1 5CB33FB0
+P 8550 3750
+F 0 "R2" V 8630 3750 50  0000 C CNN
+F 1 "R4K7" V 8550 3750 50  0000 C CNN
+F 2 "Resistors_SMD:R_1206_HandSoldering" V 8480 3750 50  0000 C CNN
+F 3 "" H 8550 3750 50  0000 C CNN
+	1    8550 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9600 4100 9600 4200
+Wire Wire Line
+	9600 4400 9600 4300
+Wire Wire Line
+	7400 4400 9600 4400
+Connection ~ 9400 4100
+Connection ~ 9400 4400
+Connection ~ 9150 4100
+Wire Wire Line
+	7100 3600 8950 3600
+Wire Wire Line
+	8950 3600 8950 3700
+Connection ~ 8550 3900
+Connection ~ 8550 3600
+Wire Wire Line
+	9150 3550 9150 4100
+Wire Wire Line
+	8050 3550 9150 3550
+Wire Wire Line
+	7100 3050 7100 3600
+Connection ~ 5350 3050
+Connection ~ 7400 3150
+Connection ~ 9150 4400
+Wire Wire Line
+	4200 3750 8250 3750
+Wire Wire Line
+	10450 4200 10550 4200
+Wire Wire Line
+	10650 4300 10450 4300
+Wire Wire Line
+	10550 3000 11100 3000
+Wire Wire Line
+	10550 4200 10550 3000
+Wire Wire Line
+	10650 3100 10650 4300
+Wire Wire Line
+	10650 3100 11100 3100
+Wire Wire Line
+	7200 2550 7750 2550
+Wire Wire Line
+	7400 2850 8000 2850
+Wire Wire Line
+	8000 2850 8000 2650
+Wire Wire Line
+	8000 2650 7850 2650
+Wire Wire Line
+	7750 2550 7750 2750
+Wire Wire Line
+	7750 2750 7850 2750
+Wire Wire Line
+	8950 4100 9600 4100
+Wire Wire Line
+	10450 2550 10450 4100
+Wire Wire Line
+	8700 2750 10700 2750
+Wire Wire Line
+	10700 2750 10700 3300
+Wire Wire Line
+	10450 2550 8700 2550
+$Comp
+L Q_NPN_BCE Q3
+U 1 1 5CCCE97C
+P 5900 2050
+F 0 "Q3" H 6200 2100 50  0000 R CNN
+F 1 "Q_NPN_BCE_DTC124" H 6500 2000 50  0000 R CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Rugged" H 6100 2150 50  0000 C CNN
+F 3 "" H 5900 2050 50  0000 C CNN
+	1    5900 2050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5900 2250 5900 3650
+Wire Wire Line
+	5900 3650 4450 3650
+Wire Wire Line
+	6100 2350 6100 1950
+Wire Wire Line
+	7400 1600 5700 1600
+Wire Wire Line
+	5700 1600 5700 1950
+$Comp
+L Q_NPN_BCE Q4
+U 1 1 5CCD2CEF
+P 8250 3300
+F 0 "Q4" H 8550 3350 50  0000 R CNN
+F 1 "Q_NPN_BCE_DTC124" H 8850 3250 50  0000 R CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Rugged" H 8450 3400 50  0000 C CNN
+F 3 "" H 8250 3300 50  0000 C CNN
+	1    8250 3300
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8250 3750 8250 3500
+Wire Wire Line
+	8450 3200 8450 3900
+Wire Wire Line
+	8450 3900 8650 3900
+Wire Wire Line
+	8050 3550 8050 3200
+$Comp
+L CONN_01X04 P1
+U 1 1 5DD55D33
+P 4000 3350
+F 0 "P1" H 4000 3600 50  0000 C CNN
+F 1 "CONN_UPDOWN_ONOFF_PWR_GND" V 4100 3350 50  0000 C CNN
+F 2 "SmartHouseLib:CONN_4_5mm" H 4000 3350 50  0000 C CNN
+F 3 "" H 4000 3350 50  0000 C CNN
+	1    4000 3350
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4200 3050 7100 3050
+Wire Wire Line
+	4200 3050 4200 3200
+Wire Wire Line
+	7400 3150 4600 3150
+Wire Wire Line
+	4600 3150 4600 3300
+Wire Wire Line
+	4600 3300 4200 3300
+Wire Wire Line
+	4200 3400 4450 3400
+Wire Wire Line
+	4450 3400 4450 3650
+Wire Wire Line
+	4200 3500 4200 3750
+$Comp
+L CONN_01X04 P2
+U 1 1 5DD57CF6
+P 11300 3150
+F 0 "P2" H 11300 3400 50  0000 C CNN
+F 1 "CONN_IN_DOWN_UP" V 11400 3150 50  0000 C CNN
+F 2 "SmartHouseLib:CONN_4_7.62mm" H 11300 3150 50  0000 C CNN
+F 3 "" H 11300 3150 50  0000 C CNN
+	1    11300 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10700 3300 11100 3300
+$EndSCHEMATC

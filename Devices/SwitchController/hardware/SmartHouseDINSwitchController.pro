@@ -1,4 +1,4 @@
-update=27.02.2021 11:47:14
+update=03.03.2021 23:41:49
 version=1
 last_client=kicad
 [cvpcb]
@@ -22,7 +22,7 @@ ERC_TestSimilarLabels=1
 [pcbnew]
 version=1
 PageLayoutDescrFile=
-LastNetListRead=SmartHouseDINRelayGate.net
+LastNetListRead=SmartHouseDINSwitchController.net
 CopperLayerCount=2
 BoardThickness=1.6
 AllowMicroVias=0
@@ -37,9 +37,7 @@ MinMicroViaDrill=0.09999999999999999
 MinHoleToHole=0.25
 TrackWidth1=0.25
 TrackWidth2=1
-TrackWidth3=2
-TrackWidth4=4
-ViaDiameter1=0.6
+ViaDiameter1=0.8
 ViaDrill1=0.4
 ViaDiameter2=2
 ViaDrill2=1
@@ -241,7 +239,7 @@ Enabled=0
 Name=Default
 Clearance=0.2
 TrackWidth=0.25
-ViaDiameter=0.6
+ViaDiameter=0.8
 ViaDrill=0.4
 uViaDiameter=0.3
 uViaDrill=0.1

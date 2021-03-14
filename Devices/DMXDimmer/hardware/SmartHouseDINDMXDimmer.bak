@@ -1,0 +1,174 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:SmartHouseComponents
+LIBS:SmartHouseDMXDimmer-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L STM32DISCOVERY U1
+U 1 1 5B0C4D35
+P 2850 3950
+F 0 "U1" H 3300 3200 60  0000 C CNN
+F 1 "STM32DISCOVERY" H 2900 4850 60  0000 C CNN
+F 2 "SmartHouseLib:STM32_DISCOVERY" H 3300 3200 60  0001 C CNN
+F 3 "" H 3300 3200 60  0001 C CNN
+	1    2850 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X02 P2
+U 1 1 5B0C654C
+P 5000 4300
+F 0 "P2" H 5000 4450 50  0000 C CNN
+F 1 "CONN_01X02" V 5100 4300 50  0000 C CNN
+F 2 "SmartHouseLib:CONN_2_3.5mm" H 5000 4300 50  0000 C CNN
+F 3 "" H 5000 4300 50  0000 C CNN
+	1    5000 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X02 P1
+U 1 1 5B0C6718
+P 3550 1700
+F 0 "P1" H 3550 1850 50  0000 C CNN
+F 1 "CONN_01X02" V 3650 1700 50  0000 C CNN
+F 2 "SmartHouseLib:CONN_2_3.5mm" H 3550 1700 50  0000 C CNN
+F 3 "" H 3550 1700 50  0000 C CNN
+	1    3550 1700
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4800 4250 4450 4250
+Wire Wire Line
+	4450 4350 4800 4350
+Wire Wire Line
+	3600 3050 3600 1900
+Wire Wire Line
+	3500 1900 3500 3150
+Wire Wire Line
+	3600 3050 4450 3050
+Wire Wire Line
+	3500 3150 4450 3150
+Wire Wire Line
+	1400 4350 1150 4350
+Wire Wire Line
+	1100 4450 1400 4450
+Wire Wire Line
+	4450 3750 4750 3750
+$Comp
+L RS485_MOD U2
+U 1 1 5C0A450C
+P 6000 3100
+F 0 "U2" H 6000 3100 60  0000 C CNN
+F 1 "RS485_MOD" H 6000 3100 60  0000 C CNN
+F 2 "SmartHouseLib:RS485" H 6000 3100 60  0001 C CNN
+F 3 "" H 6000 3100 60  0001 C CNN
+	1    6000 3100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5600 3050 5600 3150
+Wire Wire Line
+	4750 3750 4750 3150
+Wire Wire Line
+	4750 3150 5600 3150
+Wire Wire Line
+	1150 4350 1150 2300
+Wire Wire Line
+	1150 2300 5100 2300
+Wire Wire Line
+	5100 2300 5100 3250
+Wire Wire Line
+	5100 3250 5600 3250
+Wire Wire Line
+	5600 2950 5150 2950
+Wire Wire Line
+	5150 2950 5150 2250
+Wire Wire Line
+	5150 2250 1100 2250
+Wire Wire Line
+	1100 2250 1100 4450
+Wire Wire Line
+	3600 2000 6900 2000
+Wire Wire Line
+	6900 2000 6900 3250
+Connection ~ 3600 2000
+Wire Wire Line
+	3500 1900 6500 1900
+Wire Wire Line
+	6500 1900 6500 2950
+Wire Wire Line
+	6900 3250 6500 3250
+$Comp
+L CONN_01X02 P4
+U 1 1 5C0A4CA9
+P 7400 3100
+F 0 "P4" H 7400 3250 50  0000 C CNN
+F 1 "CONN_01X02" V 7500 3100 50  0000 C CNN
+F 2 "SmartHouseLib:CONN_2_3.5mm" H 7400 3100 50  0000 C CNN
+F 3 "" H 7400 3100 50  0000 C CNN
+	1    7400 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X02 P3
+U 1 1 5C0A4D13
+P 7400 2750
+F 0 "P3" H 7400 2900 50  0000 C CNN
+F 1 "CONN_01X02" V 7500 2750 50  0000 C CNN
+F 2 "SmartHouseLib:CONN_2_3.5mm" H 7400 2750 50  0000 C CNN
+F 3 "" H 7400 2750 50  0000 C CNN
+	1    7400 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7200 3150 6500 3150
+Wire Wire Line
+	6500 3050 7200 3050
+Wire Wire Line
+	7200 2800 6900 2800
+Connection ~ 6900 2800
+Wire Wire Line
+	7200 2700 6500 2700
+Connection ~ 6500 2700
+$EndSCHEMATC

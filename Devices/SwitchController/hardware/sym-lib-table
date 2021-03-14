@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name SmartHouseDINDMXDimmer-rescue)(type Legacy)(uri ${KIPRJMOD}/SmartHouseDINDMXDimmer-rescue.lib)(options "")(descr ""))
+  (lib (name SmartHouseDINSwitchController-rescue)(type Legacy)(uri ${KIPRJMOD}/SmartHouseDINSwitchController-rescue.lib)(options "")(descr ""))
+)
