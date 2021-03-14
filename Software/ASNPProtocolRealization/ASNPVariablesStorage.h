@@ -18,7 +18,10 @@ uint8_t getVariableSize(eVariableType type);
 struct __attribute__((packed)) sVariableInfo{
   char name[16];
   eVariableType type;
-  uint8_t slotsCount;//also slot index in some cases
+  union{
+	uint8_t slotsCount;
+	uint8_t slotIndex; 
+  };
 };
 
 struct __attribute__((packed)) sUFixFloat{

@@ -4,9 +4,9 @@ char cUtils::m_TempBuffer[16];
 uint8_t cUtils::m_TempFormatBuffer[cASNPLevel0Handler::PACKAGE_BUFFER_SIZE]; //usit in send<> methods as temprary buffer to avoid dynamic memory allocation
 int cUtils::m_TempFormatBufferPos;
 
-void cUtils::writeStartToTempBuffer(bool highPriority, bool groupAddress, bool event, uint8_t address, uint8_t cmdType, uint8_t cmd, uint8_t dataVersion)
+void cUtils::writeStartToTempBuffer(bool highPriority, bool event, uint8_t address, uint8_t cmdType, uint8_t cmd, uint8_t dataVersion)
 {
-  uint8_t parity = (highPriority?1:0) +(groupAddress?1:0) +(event?1:0);
+  uint8_t parity = (highPriority?1:0) +(event?1:0);
   bool parityBit = parity % 2 == 1;
   m_TempFormatBufferPos = 0;
   uint8_t flags = 0;
@@ -14,8 +14,6 @@ void cUtils::writeStartToTempBuffer(bool highPriority, bool groupAddress, bool e
     flags = flags | cASNPLevel0Handler::FLAG_PARITY;
   if (highPriority)
     flags = flags | cASNPLevel0Handler::FLAG_HIGH_PRIORITY;
-  if (groupAddress)
-    flags = flags | cASNPLevel0Handler::FLAG_GROUP_ADDRESS;
   if (event)
     flags = flags | cASNPLevel0Handler::FLAG_EVENT;
   writeuint8ToTempBuffer(flags);

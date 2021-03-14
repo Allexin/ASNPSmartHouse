@@ -7,10 +7,8 @@ cASNPLevel0Handler::cASNPLevel0Handler()
   m_ReceiverState = WAIT_START;
 
   memset(m_EnabledPrivateAddresses,0,256);
-  memset(m_EnabledGroupAddresses,0,256);
   memset(m_EnabledPrivateEvents,0,256);
   m_EnabledPrivateAddresses[0] = true;
-  m_EnabledGroupAddresses[0] = true;
   m_EnabledPrivateEvents[0] = true;
 }
 
@@ -26,14 +24,13 @@ bool cASNPLevel0Handler::queuePackage(const uint8_t* data)
   uint8_t dataLength = data[LENGTH_POS];
 
   bool highPriority = (packageInfo & FLAG_HIGH_PRIORITY) == FLAG_HIGH_PRIORITY;
-  bool isGroupAddress = (packageInfo & FLAG_GROUP_ADDRESS) == FLAG_GROUP_ADDRESS;
   bool isEvent = (packageInfo & FLAG_EVENT) == FLAG_EVENT;
   bool canSend = address == 0x00;
   if (isEvent){
     canSend = canSend || (m_EnabledPrivateEvents[address]);
   }
   else{
-    canSend = canSend || (isGroupAddress?m_EnabledGroupAddresses[address]:m_EnabledPrivateAddresses[address]);
+    canSend = canSend || m_EnabledPrivateAddresses[address];
   }
   long avaiableSize = (highPriority?SEND_BUFFER_SIZE:HALF_SEND_BUFFER_SIZE) - m_SendBufferSize;
   long packageLength = dataLength+PACKAGE_SERVICE_DATA_SIZE;

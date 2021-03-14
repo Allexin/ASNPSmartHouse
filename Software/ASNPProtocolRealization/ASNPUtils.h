@@ -10,7 +10,7 @@ protected:
   static uint8_t m_TempFormatBuffer[cASNPLevel0Handler::PACKAGE_BUFFER_SIZE]; //usit in send<> methods as temprary buffer to avoid dynamic memory allocation
   static int m_TempFormatBufferPos;
 public:
-  static void writeStartToTempBuffer(bool highPriority, bool groupAddress, bool event, uint8_t address, uint8_t cmdType, uint8_t cmd, uint8_t dataVersion);
+  static void writeStartToTempBuffer(bool highPriority, bool event, uint8_t address, uint8_t cmdType, uint8_t cmd, uint8_t dataVersion);
   static void writeToTempBuffer(const uint8_t* data, uint8_t lngt);
   static void writeuint8ToTempBuffer(uint8_t value);
   static void writeStrToTempBuffer(const String& str);

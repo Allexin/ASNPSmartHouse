@@ -5,7 +5,7 @@
     "authors": [
         {
             "name": "Alexander Basov",
-            "email": "basovav@gmail.com",
+            "email": "alexander@basov.link",
             "url": "https://github.com/Allexin/ASNPSmartHouse",
             "maintainer": true
         }
@@ -14,7 +14,7 @@
         "type": "git",
         "url": "https://github.com/Allexin/ASNPSmartHouse"
     },
-    "version": "1.0.0",
+    "version": "2.0.0",
     "homepage": "https://github.com/Allexin/ASNPSmartHouse",
     "frameworks": "Arduino",
     "examples": [

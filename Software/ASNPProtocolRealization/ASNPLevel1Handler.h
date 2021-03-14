@@ -10,7 +10,7 @@ public:
   virtual bool CheckWantAllMessages() { return false; } //override this method if you want to intercept messages for another devices. remember - even if you override this method and return true - you get only message for addresses setted in pong messages
   
   virtual void onRawMessageReceived(class cASNPLevel1Handler* sender, uint8_t* package){}
-  virtual void onMessageReceived(class cASNPLevel1Handler* sender, bool receiverIsGroup, uint8_t dataLength, uint8_t* data){}
+  virtual void onMessageReceived(class cASNPLevel1Handler* sender, uint8_t dataLength, uint8_t* data){}
   virtual void onEventReceived(class cASNPLevel1Handler* sender, uint8_t senderAddress, uint8_t dataLength, uint8_t* data){}
   virtual void onVariableChanged(class cASNPLevel1Handler* sender,sVariableInfo* variableInfo, void* variableValue){}
 };
@@ -32,6 +32,8 @@ public:
   static const uint8_t CMD_SET_VARIABLE = 0x28;
   static const uint8_t CMD_SUBSCRIBE_TO_VARIABLE = 0x29;
   static const uint8_t CMD_EVENT_VARIABLE_CHANGED = 0x2A;
+  
+  static const uint8_t CMD_LOG = 0xFF;
 
   static const String ADDRESS_VAR_NAME;
   static const String GROUP_VAR_NAME;
@@ -89,12 +91,12 @@ public:
   void sendVariableChangedEvent(sVariableInfo* info, void* variableValue);
 
 //this messages can be called externally when needed
-  void sendRequestInfo(uint8_t targetAddress, bool groupAddress);
-  void sendGetVariablesCount(uint8_t targetAddress, bool groupAddress);
-  void sendGetVariables(uint8_t targetAddress, bool groupAddress, uint8_t startIndex);
-  void sendGetVariable(uint8_t targetAddress, bool groupAddress, sVariableInfo* info);
-  void sendSetVariable(uint8_t targetAddress, bool groupAddress, sVariableInfo* info, void* variableValue);
-
+  void sendRequestInfo(uint8_t targetAddress);
+  void sendGetVariablesCount(uint8_t targetAddress);
+  void sendGetVariables(uint8_t targetAddress, uint8_t startIndex);
+  void sendGetVariable(uint8_t targetAddress, const sVariableInfo* info);
+  void sendSetVariable(uint8_t targetAddress, const sVariableInfo* info, const void* variableValue);
+  void sendLog(uint8_t targetAddress, const char* msg);
 };
 
 

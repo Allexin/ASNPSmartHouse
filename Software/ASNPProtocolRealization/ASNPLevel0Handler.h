@@ -31,7 +31,6 @@ protected:
 public:
   static const uint8_t FLAG_PARITY = 1;
   static const uint8_t FLAG_HIGH_PRIORITY = 2;
-  static const uint8_t FLAG_GROUP_ADDRESS = 4;
   static const uint8_t FLAG_EVENT = 8;
   static const uint8_t FLAG_4_UNUSED = 16;
   static const uint8_t FLAG_5_UNUSED = 32;
@@ -39,7 +38,6 @@ public:
   static const uint8_t FLAG_7_UNUSED = 128;
 private:
   bool            m_EnabledPrivateAddresses[256];
-  bool            m_EnabledGroupAddresses[256];
   bool            m_EnabledPrivateEvents[256];
 
   uint8_t         m_SendBuffer[SEND_BUFFER_SIZE];
@@ -67,9 +65,6 @@ public:
 
   void enablePrivateAddressRouting(uint8_t addr){
     m_EnabledPrivateAddresses[addr] = true;
-  }
-  void enableGroupAddressRouting(uint8_t addr){
-    m_EnabledGroupAddresses[addr] = true;
   }
   void enableEventsRouting(uint8_t addr){
     m_EnabledPrivateEvents[addr] = true;

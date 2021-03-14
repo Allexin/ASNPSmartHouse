@@ -105,7 +105,6 @@ bool cASNPLevel1Handler::updateReceiving(long dt)
     uint8_t dataLength = package[cASNPLevel0Handler::LENGTH_POS];
     uint8_t* data = &package[cASNPLevel0Handler::DATA_START_POS];
     bool highPriority = (info & cASNPLevel0Handler::FLAG_HIGH_PRIORITY) == cASNPLevel0Handler::FLAG_HIGH_PRIORITY;
-    bool isGroupAddress = (info & cASNPLevel0Handler::FLAG_GROUP_ADDRESS) == cASNPLevel0Handler::FLAG_GROUP_ADDRESS;
     bool isEvent = (info & cASNPLevel0Handler::FLAG_EVENT) == cASNPLevel0Handler::FLAG_EVENT;
     bool isBroadcast = address == 0x00;
 
@@ -127,11 +126,17 @@ bool cASNPLevel1Handler::updateReceiving(long dt)
         isToMe = m_selfPersonalAddress || m_selfGroupAddress;
       }
       else{
-        if (isGroupAddress){
-          isToMe = *m_selfGroupAddress==address;
+        if (*m_selfPersonalAddress==address){
+          isToMe = true;
         }
         else{
-          isToMe = *m_selfPersonalAddress==address;
+		  for (int i = 0; i<m_selfGroupAddressCount; ++i)
+		  {
+			  if (m_selfGroupAddress[i] == address)
+			  {
+				  isToMe = true;
+			  }
+		  }
         }
       }
     }
@@ -208,7 +213,7 @@ bool cASNPLevel1Handler::updateReceiving(long dt)
         }
         else
         {  
-          m_Listener->onMessageReceived(this, isGroupAddress, dataLength, data);
+          m_Listener->onMessageReceived(this, dataLength, data);
         }
       }
     }
@@ -229,7 +234,7 @@ void cASNPLevel1Handler::queuePong()
     return;
   }
   if (m_selfGroupAddress){
-    m_SendPingCounter = *m_selfGroupAddress*20; //we have not personal address, so send with delay from group address
+    m_SendPingCounter = *m_selfGroupAddress*20; //we have not personal address, so send with delay from first group address
     return;
   }
   m_SendPingCounter = 0; //we cant send pong because have not any addresses
@@ -237,8 +242,8 @@ void cASNPLevel1Handler::queuePong()
 
 void cASNPLevel1Handler::sendPing()
 {
-                      //highPriority, groupAddress, event, address, cmdType, cmd,           dataVersion
-  cUtils::writeStartToTempBuffer(true,        false,       false,   0x00,       0x00,    CMD_PING,      0x01);
+                      //highPriority,  event, address, cmdType, cmd,           dataVersion
+  cUtils::writeStartToTempBuffer(true, false,   0x00,       0x00,    CMD_PING,      0x01);
   //fill data
   //NO DATA FOR THIS CMD
   //~fill data
@@ -248,8 +253,8 @@ void cASNPLevel1Handler::sendPing()
 void cASNPLevel1Handler::sendPong()
 {
   static const uint8_t MAX_PONG_ADDRESSES = 64;
-                      //highPriority, groupAddress, event, address, cmdType, cmd,           dataVersion
-  cUtils::writeStartToTempBuffer(true,        false,       false,  0x00,       0x00,    CMD_PONG,      0x01);
+                      //highPriority, event, address, cmdType, cmd,           dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  0x00,       0x00,    CMD_PONG,      0x01);
   //fill data
   cUtils::writeuint8ToTempBuffer(min(m_selfPersonalAddressCount,MAX_PONG_ADDRESSES));
   for (int i = 0; i<min(m_selfPersonalAddressCount,MAX_PONG_ADDRESSES);++i){
@@ -283,8 +288,8 @@ void cASNPLevel1Handler::sendPong()
 
 void cASNPLevel1Handler::sendResponseInfo(uint8_t responseAddress)
 {
-                      //highPriority, groupAddress, event, address,                   cmdType, cmd,                   dataVersion
-  cUtils::writeStartToTempBuffer(true,        false,       false,  responseAddress,     0x00,    CMD_RESPONSE_INFO,      0x01);
+                      //highPriority, event, address,                   cmdType, cmd,                   dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  responseAddress,     0x00,    CMD_RESPONSE_INFO,      0x01);
   //fill data
   if (m_selfPersonalAddressCount>0){
     cUtils::writeuint8ToTempBuffer(m_selfPersonalAddress[0]);
@@ -300,8 +305,8 @@ void cASNPLevel1Handler::sendResponseInfo(uint8_t responseAddress)
 
 void cASNPLevel1Handler::sendResponseVariablesCount(uint8_t responseAddress)
 {
-                      //highPriority, groupAddress, event, address,                           cmdType, cmd,                               dataVersion
-  cUtils::writeStartToTempBuffer(true,        false,       false,  responseAddress,          0x00,    CMD_RESPONSE_VARIABLES_COUNT,      0x01);
+                      //highPriority, event, address,                           cmdType, cmd,                               dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  responseAddress,          0x00,    CMD_RESPONSE_VARIABLES_COUNT,      0x01);
   //fill data
   if (m_selfPersonalAddressCount>0){
     cUtils::writeuint8ToTempBuffer(m_selfPersonalAddress[0]);
@@ -323,8 +328,8 @@ void cASNPLevel1Handler::sendResponseVariablesCount(uint8_t responseAddress)
 void cASNPLevel1Handler::sendResponseVariables(uint8_t responseAddress, uint8_t startIndex)
 {
   static const uint8_t MAX_VARIABLES_COUNT_PER_PACKAGE = 8;
-                      //highPriority, groupAddress, event, address,                     cmdType, cmd,                         dataVersion
-  cUtils::writeStartToTempBuffer(true,        false,       false,  responseAddress,      0x00,    CMD_RESPONSE_VARIABLES,      0x01);
+                      //highPriority, event, address,                     cmdType, cmd,                         dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  responseAddress,      0x00,    CMD_RESPONSE_VARIABLES,      0x01);
   //fill data
   if (m_selfPersonalAddressCount>0){
     cUtils::writeuint8ToTempBuffer(m_selfPersonalAddress[0]);
@@ -356,8 +361,8 @@ void cASNPLevel1Handler::sendResponseVariables(uint8_t responseAddress, uint8_t 
 
 void cASNPLevel1Handler::sendResponseVariable(uint8_t responseAddress, sVariableInfo* info, void* variableValue)
 {
-                      //highPriority, groupAddress, event,  address,                 cmdType, cmd,                               dataVersion
-  cUtils::writeStartToTempBuffer(true,        false,       false,  responseAddress,   0x00,    CMD_RESPONSE_VARIABLE,      0x01);
+                      //highPriority, event,  address,                 cmdType, cmd,                               dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  responseAddress,   0x00,    CMD_RESPONSE_VARIABLE,      0x01);
   //fill data
   if (m_selfPersonalAddressCount>0){
     cUtils::writeuint8ToTempBuffer(m_selfPersonalAddress[0]);
@@ -377,8 +382,8 @@ void cASNPLevel1Handler::sendVariableChangedEvent(sVariableInfo* info, void* var
     return;
   }
   
-                      //highPriority, groupAddress, event, address,                          cmdType, cmd,                               dataVersion
-  cUtils::writeStartToTempBuffer(true,        false,       true ,  m_selfPersonalAddress[0],  0x00,    CMD_EVENT_VARIABLE_CHANGED,      0x01);
+                      //highPriority, event, address,                          cmdType, cmd,                               dataVersion
+  cUtils::writeStartToTempBuffer(true,true ,  m_selfPersonalAddress[0],  0x00,    CMD_EVENT_VARIABLE_CHANGED,      0x01);
   //fill data
   cUtils::writeVariableInfoToTempBuffer(info);
   cUtils::writeToTempBuffer((uint8_t*)variableValue,getVariableSize(info->type));
@@ -388,67 +393,86 @@ void cASNPLevel1Handler::sendVariableChangedEvent(sVariableInfo* info, void* var
 
 ////
 
-void cASNPLevel1Handler::sendRequestInfo(uint8_t targetAddress, bool groupAddress)
+void cASNPLevel1Handler::sendRequestInfo(uint8_t targetAddress)
 {
   if (m_selfPersonalAddressCount==0){
     return;
   }
   
-                      //highPriority, groupAddress, event,  address,                  cmdType, cmd,                               dataVersion
-  cUtils::writeStartToTempBuffer(true,        groupAddress, false,  targetAddress,    0x00,    CMD_REQUEST_INFO,                  0x01);
+                      //highPriority, event,  address,                  cmdType, cmd,                               dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  targetAddress,    0x00,    CMD_REQUEST_INFO,                  0x01);
   //fill data
   cUtils::writeuint8ToTempBuffer(m_selfPersonalAddress[0]);
   //~fill data
   sendRawMessage(cUtils::writeChecksumToTempBuffer());
 }
-void cASNPLevel1Handler::sendGetVariablesCount(uint8_t targetAddress, bool groupAddress)
+void cASNPLevel1Handler::sendGetVariablesCount(uint8_t targetAddress)
 {
   if (m_selfPersonalAddressCount==0){
     return;
   }
   
-                      //highPriority, groupAddress, event,  address,                   cmdType, cmd,                               dataVersion
-  cUtils::writeStartToTempBuffer(true,        groupAddress, false,  targetAddress,     0x00,    CMD_GET_VARIABLES_COUNT,                  0x01);
+                      //highPriority, event,  address,                   cmdType, cmd,                               dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  targetAddress,     0x00,    CMD_GET_VARIABLES_COUNT,                  0x01);
   //fill data
   cUtils::writeuint8ToTempBuffer(m_selfPersonalAddress[0]);
   //~fill data
   sendRawMessage(cUtils::writeChecksumToTempBuffer());
 }
-void cASNPLevel1Handler::sendGetVariables(uint8_t targetAddress, bool groupAddress, uint8_t startIndex)
+void cASNPLevel1Handler::sendGetVariables(uint8_t targetAddress, uint8_t startIndex)
 {
   if (m_selfPersonalAddressCount==0){
     return;
   }
   
-                      //highPriority, groupAddress, event,  address,                  cmdType, cmd,                               dataVersion
-  cUtils::writeStartToTempBuffer(true,        groupAddress, false,  targetAddress,    0x00,    CMD_GET_VARIABLES,                  0x01);
+                      //highPriority, event,  address,                  cmdType, cmd,                               dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  targetAddress,    0x00,    CMD_GET_VARIABLES,                  0x01);
   //fill data
   cUtils::writeuint8ToTempBuffer(m_selfPersonalAddress[0]);
   cUtils::writeuint8ToTempBuffer(startIndex);
   //~fill data
   sendRawMessage(cUtils::writeChecksumToTempBuffer());
 }
-void cASNPLevel1Handler::sendGetVariable(uint8_t targetAddress, bool groupAddress, sVariableInfo* info)
+void cASNPLevel1Handler::sendGetVariable(uint8_t targetAddress, const sVariableInfo* info)
 {
   if (m_selfPersonalAddressCount==0){
     return;
   }
   
-                      //highPriority, groupAddress, event,  address,                cmdType, cmd,                               dataVersion
-  cUtils::writeStartToTempBuffer(true,        groupAddress, false,  targetAddress,  0x00,    CMD_GET_VARIABLE,                  0x01);
+                      //highPriority, event,  address,                cmdType, cmd,                               dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  targetAddress,  0x00,    CMD_GET_VARIABLE,                  0x01);
   //fill data
   cUtils::writeuint8ToTempBuffer(m_selfPersonalAddress[0]);
   cUtils::writeVariableInfoToTempBuffer(info);
   //~fill data
   sendRawMessage(cUtils::writeChecksumToTempBuffer());
 }
-void cASNPLevel1Handler::sendSetVariable(uint8_t targetAddress, bool groupAddress, sVariableInfo* info, void* variableValue)
+void cASNPLevel1Handler::sendSetVariable(uint8_t targetAddress, const sVariableInfo* info, const void* variableValue)
 {
-                      //highPriority, groupAddress, event,  address,                cmdType, cmd,                               dataVersion
-  cUtils::writeStartToTempBuffer(true,        groupAddress, false,  targetAddress,  0x00,    CMD_SET_VARIABLE,                  0x01);
+                      //highPriority, event,  address,                cmdType, cmd,                               dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  targetAddress,  0x00,    CMD_SET_VARIABLE,                  0x01);
   //fill data
   cUtils::writeVariableInfoToTempBuffer(info);
   cUtils::writeToTempBuffer((uint8_t*)variableValue,getVariableSize(info->type));
+  //~fill data
+  sendRawMessage(cUtils::writeChecksumToTempBuffer());
+}
+void cASNPLevel1Handler::sendLog(uint8_t targetAddress, const char* msg)
+{
+                      //highPriority, event,  address,                cmdType, cmd,               dataVersion
+  cUtils::writeStartToTempBuffer(true,false,  targetAddress,  		     0x00, CMD_LOG,                  0x01);
+  //fill data
+  uint8_t length ;
+  if (strlen(msg)>200)
+  {
+	  length = 200;
+  }
+  else
+  {
+	  length = strlen(msg);
+  }
+  cUtils::writeToTempBuffer(&length,sizeof(length));
+  cUtils::writeToTempBuffer((uint8_t*)msg,length);
   //~fill data
   sendRawMessage(cUtils::writeChecksumToTempBuffer());
 }
@@ -491,7 +515,7 @@ void cASNPLevel1Handler::parsePong(uint8_t* data, uint8_t dataLength)
 
   uint8_t gaCount = readuint8(data,pos,dataLength);
   for (int i = 0; i<gaCount;++i){
-    m_Level0Handler.enableGroupAddressRouting(readuint8(data,pos,dataLength));
+    m_Level0Handler.enablePrivateAddressRouting(readuint8(data,pos,dataLength));
   }
 
   uint8_t eCount = readuint8(data,pos,dataLength);
